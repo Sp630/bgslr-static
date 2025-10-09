@@ -1,3 +1,4 @@
+# This module is no longer supported. Android Development has moved to Android Studio.
 # this file connects all the modules together
 # <editor-fold desc="Imports">
 import sys

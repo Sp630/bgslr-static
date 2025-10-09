@@ -1,5 +1,11 @@
 #this file connects all the modules together
+#first some housekeeping must be done to load the dlls correctly
+import os
 import sys
+
+base_path = os.path.dirname(os.path.abspath(sys.executable))
+os.environ["PATH"] += os.pathsep + os.path.join(base_path, 'dlls')
+
 import time
 import cv2
 import numpy as np
@@ -12,14 +18,16 @@ import tensorflow as tf
 from tensorboard import summary
 from tensorflow.keras.models import *
 import ClassificationModule
-import os
 import gc
 import tensorflow.keras.backend as K
 import threading
 import tkinter as tk
 from PIL import Image, ImageTk
 import CustomTrainer
+from gtts import gTTS
+from playsound import playsound
 
+print("Available devices:", tf.config.list_physical_devices())
 
 #ensure proper usage of physical devices
 # gpus = tf.config.experimental.list_physical_devices('GPU')
@@ -201,7 +209,13 @@ while not stop_event.isSet():
         #print(np.argmax(prediction))
         if classes[np.argmax(prediction)] == var and counter >= 10:
             if(np.argmax(prediction) == customSign):
-                globalText = ""
+                text = globalText
+                if text is not None and text != "" and text != " ":
+                    tts = gTTS(text=text, lang='bg')
+                    tts.save("bulgarian.mp3")
+                    playsound("bulgarian.mp3")
+                    os.remove("bulgarian.mp3")
+                    globalText = ""
             else:
                 globalText = globalText + classes[np.argmax(prediction)]
             counter = 0

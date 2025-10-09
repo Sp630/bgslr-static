@@ -9,8 +9,9 @@ import tensorflow
 from tensorboard import summary
 from tensorflow.keras.models import *
 from pathlib import Path
+import keyboard
 
-
+keyReset = True
 
 
 cap = cv2.VideoCapture(0)
@@ -23,6 +24,7 @@ counter = 0
 
 #create a loop and use the camera
 def CollectImages(directory, num, let):
+    keyReset = False
     counter = 0
     dir = Path(directory)
     if dir.exists() and dir.is_dir():
@@ -72,9 +74,12 @@ def CollectImages(directory, num, let):
         #save show the image
         cv2.imshow("Image", img)
         key = cv2.waitKey(1)
-        if key == ord("s"):
+        if key == ord("s") and keyReset:
             counter += 1
             cv2.imwrite(f"{directory}/Image_{time.time()}.jpg", imgWhite)
             print(counter)
+        elif not keyboard.is_pressed("s"):
+            keyReset = True
+
     return counter
 

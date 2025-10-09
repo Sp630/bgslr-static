@@ -11,6 +11,10 @@ from tensorflow.keras.callbacks import TensorBoard
 from tensorflow.keras.callbacks import ModelCheckpoint
 
 from tensorflow.python.platform import build_info
+from gtts import gTTS
+import os
 
-print("TensorFlow CUDA build information:")
-print("cuDNN version: ", build_info)
+text = "Здравей, това е тест на български език."
+tts = gTTS(text=text, lang='bg')
+tts.save("bulgarian.mp3")
+os.system("start bulgarian.mp3")  # Use playsound if needed

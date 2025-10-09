@@ -95,13 +95,13 @@ def Train():
 
     global let
     let = 1
-    end = 7
+    end = 3
     classes = ["А", "Б", "В", "Г", "Д", "E", "Ж", "З", "И", "Й", "К", "Л", "М", "Н", "О", "П", "Р", "С", "Т",
                "У", "Ф", "Х", "Ц", "Ч", "Ш", "Щ", "Ъ", "Ю", "Я", ""]
     while let != end + 1:
         print(f"Let is {let}")
         text = f"Натиснете S, за да запазите \n снимки на букв. {classes[let-1]}"
-        DataCollection.CollectImages(f"Data/Testing/{let}", 400, 1)
+        DataCollection.CollectImages(f"Data/Testing/{let}", 300, 1)
         let += 1
         print(text)
 

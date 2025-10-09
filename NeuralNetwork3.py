@@ -83,7 +83,13 @@ checkpoint = ModelCheckpoint(
 
 #compile the model
 model.compile(loss= CategoricalCrossentropy(), optimizer = Adam(), metrics = ['accuracy'])
+model = tf.keras.models.load_model("Models/model13")
 
+# Print details of each input layer
+for input_tensor in model.inputs:
+    print("Input Name:", input_tensor.name)
+    print("Input Shape:", input_tensor.shape)
+    print("Input Data Type:", input_tensor.dtype)
 #train for 3 epochs/iterations
 history = model.fit(train_dataset, epochs = 3, validation_data = test_dataset, callbacks=[tensorboard_callback, checkpoint])
 
